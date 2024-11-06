@@ -17,7 +17,7 @@ Below are the head of the data from NOAA
 ![Weather Data Visualization](./image/data_table.png)
 ## Preliminary Visualizations of Data
 
-Currently, we have trained an ARIMA model using temperature from October only, and the following are some initial visualizations of the data.
+Currently, we have trained an ARIMA model using temperature from October only, and the following are the time vs temp plot of the data.
 ![Weather Data Visualization](./image/time_vs_temp.png)
 Additionally, we have downloaded historical weather data.
 
