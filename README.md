@@ -13,7 +13,8 @@ To overcome these challenges, we used a combination of data collection methods:
 1. **Direct Data Download:** In one instance, we directly downloaded a dataset from Kaggle. While this source provided a structured dataset, it still required preprocessing to meet project requirements.
 
 2. **Web Scraping:** Additionally, we resorted to web scraping to extract data from NOAA. This required parsing and structuring the data for further analysis.
-
+Below are the first few column of the data from NOAA
+![Weather Data Visualization](./image/data_table.png)
 ## Preliminary Visualizations of Data
 
 Currently, we have trained an ARIMA model using temperature from October only, and the following are some initial visualizations of the data.
