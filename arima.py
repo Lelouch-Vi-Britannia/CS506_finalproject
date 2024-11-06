@@ -85,8 +85,8 @@ plt.tight_layout()
 plt.show()
 
 # Define the range for p and q
-p_range = range(0, 4)  # Limit p to 0-3
-q_range = range(0, 4)  # Limit q to 0-3
+p_range = range(0, 7)  # Limit p to 0-7
+q_range = range(0, 7)  # Limit q to 0-7
 d = 1  # Set differencing term to 1 based on stationarity test
 
 # Initialize variables to store the best parameters and AIC value
