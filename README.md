@@ -1,3 +1,5 @@
+presentation link https://youtu.be/50mA8saiOr4
+
 # Weather Data Analysis
 
 To begin, we explored various data sources including NOAA, Weather Underground, OpenWeatherMap, WeatherAPI, TimeAndDate, and Kaggle. We encountered two primary challenges in this phase:
