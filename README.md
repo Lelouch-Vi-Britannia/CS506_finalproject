@@ -12,7 +12,7 @@ To overcome these challenges, we used a combination of data collection methods:
 
 1. **Direct Data Download:** In one instance, we directly downloaded a dataset from Kaggle. While this source provided a structured dataset, it still required preprocessing to meet project requirements.
 
-2. **Web Scraping:** Additionally, we resorted to web scraping to extract data from NOAA. This required parsing and structuring the data for further analysis.
+2. **Web Scraping: (See data_collection.py)** Additionally, we resorted to web scraping to extract data from NOAA. This required parsing and structuring the data for further analysis. We setup a github workflow to scrape the weather data from NOAA at 4 am everyday.
 Below are the head of the data from NOAA
 ![Weather Data Visualization](./image/data_table.png)
 ## Preliminary Visualizations of Data
@@ -28,7 +28,7 @@ The data processing was done to the historical data mainly and we will include i
 
 Also, there are some anomalies in the raw historical data. For example, a temperature of 99999. If the gap between two correct records is short, we simply use the average to fill the gap, but if the gap is large, we then choose to use autoregressive modeling to fill the blank.
 
-## Data Modeling Methods Used So Far
+## Data Modeling Methods Used So Far (See arima.py)
 
 We started with autoregressive modeling, specifically focusing on the AutoRegressive Integrated Moving Average (ARIMA) model. ARIMA is widely employed in short-term temperature prediction due to its ability to capture autocorrelation, trends, seasonality, and short-term fluctuations in time series data.
 
