@@ -17,7 +17,7 @@ To overcome these challenges, we used a combination of data collection methods:
 ## Preliminary Visualizations of Data
 
 Currently, we have trained an ARIMA model using temperature from October only, and the following are some initial visualizations of the data.
-![Weather Data Visualization](./images/time_vs_temp.png)
+![Weather Data Visualization](./image/time_vs_temp.png)
 Additionally, we have downloaded historical weather data.
 
 ## Detailed Description of Data Processing
