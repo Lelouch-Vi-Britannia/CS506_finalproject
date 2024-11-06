@@ -22,7 +22,8 @@ Additionally, we have downloaded historical weather data.
 
 ## Detailed Description of Data Processing
 
-The data processing was done to the historical data mainly and we are still considering if we are going to include it into our future model. The figure below shows that there is a time lag between the historical temperature and the scraped ground truth, and this data is fixed in data comparison between scraped data and historical data.
+The data processing was done to the historical data mainly and we will include it into our future model. The figure below shows that there is a time lag between the historical temperature and the scraped ground truth, and this data is fixed in data comparison between scraped data and historical data. We shifted the time axis on the historical data to match the ground truth.
+![Weather Data Visualization](./image/data_process.png)
 
 Also, there are some anomalies in the raw historical data. For example, a temperature of 99999. If the gap between two correct records is short, we simply use the average to fill the gap, but if the gap is large, we then choose to use autoregressive modeling to fill the blank.
 
@@ -31,6 +32,7 @@ Also, there are some anomalies in the raw historical data. For example, a temper
 We started with autoregressive modeling, specifically focusing on the AutoRegressive Integrated Moving Average (ARIMA) model. ARIMA is widely employed in short-term temperature prediction due to its ability to capture autocorrelation, trends, seasonality, and short-term fluctuations in time series data.
 
 We began with stationarity assessment, and the autocorrelation and partial autocorrelation figures are shown below.
+![Weather Data Visualization](./image/arima.png)
 
 ### Plots Analysis
 
@@ -64,14 +66,21 @@ In our pursuit of optimizing the ARIMA model for temperature prediction, we deci
 
 We initiated a programmatic iteration over a range of p and q values, ranging from 0 to 6. The aim was to identify the optimal combination of these parameters within an order range of (6, 0, 6).
 
+
+## Preliminary Results
+
+Below are some figures of current prediction
+![Weather Data Visualization](./image/predict_on_21.png)
+![Weather Data Visualization](./image/predict_on_22.png)
+![Weather Data Visualization](./image/predict_on_23.png)
+![Weather Data Visualization](./image/predict_on_24.png)
+
+As we can see from the last plot on Oct 24, it is evident that the model's predictions closely align with the ground truth data. This alignment suggests the model's effectiveness in capturing and forecasting temperature trends during that day. However, if we examine on other plot from Oct 21, 22 and 23, the success did not persist. The prediction on these days,  while still following the general trend, deviated significantly from the actual values. Furthermore, discrepancies between the predicted and actual temperature values persisted in the following data points. It is apparent that the ground truth data exhibited greater variability during these days, indicating that rapid temperature changes occurred. These patterns were not adequately captured by the ARIMA model.
+
 ## LSTM Model
 
-As ARIMA is a relatively simple model and may fail to capture underlying trends influenced by factors beyond temperature, we plan to improve our predictions using a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
+As ARIMA is a relatively simple model and will fail to capture underlying trends influenced by factors beyond temperature, we plan to improve our predictions using a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
 
 We intend to leverage LSTM's ability to handle both short-term fluctuations and long-term trends to create a more robust model that can effectively account for various influencing factors. We will incorporate not only temperature but also additional weather-related variables such as humidity, wind speed, and atmospheric pressure to improve the predictive accuracy of the model.
 
 Our next steps involve preparing the dataset for LSTM, which will include normalizing features, creating time windows for the input sequence, and splitting the data into training, validation, and testing sets. We will then build, train, and fine-tune the LSTM model to evaluate its performance in comparison to the ARIMA model.
-
-## Preliminary Results
-
-(TBD: Discuss initial model outputs, patterns found, and any insights gathered.)
