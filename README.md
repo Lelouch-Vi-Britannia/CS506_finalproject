@@ -122,11 +122,11 @@ and incorporating early stopping to prevent overfitting, Optuna discovered the b
 
 Counterintuitively, we observed that increasing sequence length tended to raise, rather than reduce, the RMSE. 
 
-![Weather Data Visualization](./image/RNSE_short.png)
+![Weather Data Visualization](./image/RMSE_short.png)
 
 We hypothesize that while a longer input sequence should, in theory, help the model capture more extended patterns and seasonalities, the dataset at hand may not provide sufficient long-term data to reap these benefits. To test this hypothesis, we extended our dataset to include the past five years of data. With this extended period, the model’s performance initially worsened as sequence length grew, but eventually improved once the sequence length surpassed the seasonal cycle of approximately 365 days. This finding suggests that data quantity and coverage of seasonal patterns are critical considerations when tuning sequence length for LSTM models.
 
-![Weather Data Visualization](./image/RNSE_long.png)
+![Weather Data Visualization](./image/RMSE_long.png)
 
 ## Results and Analysis (resultLSTM.py)
 
