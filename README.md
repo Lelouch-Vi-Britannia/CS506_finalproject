@@ -10,11 +10,6 @@
    ```bash
    python reslutLSTM.py
 
-3. **View preliminary ARIMA results (from midterm)**:  
-   Run the following command to install all required dependencies:  
-   ```bash
-   python arima.py
-
   
 # Weather Data Analysis
 
@@ -33,9 +28,10 @@ To overcome these challenges, we used a combination of data collection methods:
 2. **Web Scraping: (See data_collection.py)** Additionally, we resorted to web scraping to extract data from NOAA. This required parsing and structuring the data for further analysis. We setup a github workflow to scrape the weather data from NOAA at 4 am everyday.
 Below are the head of the data from NOAA
 ![Weather Data Visualization](./image/data_table.png)
+
 ## Preliminary Visualizations of Data
 
-Currently, we have trained an ARIMA model using temperature from October only, and the following are the time vs temp plot of the data. As arima only takes temperature as input, we only created this visualization at this point.
+Initially, we have trained an ARIMA model using temperature from October only, and the following are the time vs temp plot of the data. As arima only takes temperature as input, we only created this visualization at this point.
 ![Weather Data Visualization](./image/time_vs_temp.png)
 Additionally, we have downloaded historical weather data.
 
@@ -96,7 +92,7 @@ Below are some figures of current prediction
 
 As we can see from the last plot on Oct 24, it is evident that the model's predictions closely align with the ground truth data. This alignment suggests the model's effectiveness in capturing and forecasting temperature trends during that day. However, if we examine on other plot from Oct 21, 22 and 23, the success did not persist. The prediction on these days,  while still following the general trend, deviated significantly from the actual values. Furthermore, discrepancies between the predicted and actual temperature values persisted in the following data points. It is apparent that the ground truth data exhibited greater variability during these days, indicating that rapid temperature changes occurred. These patterns were not adequately captured by the ARIMA model.
 
-## LSTM Model
+## LSTM Model (after midterm report)
 
 As ARIMA is a relatively simple model and will fail to capture underlying trends influenced by factors beyond temperature, we plan to improve our predictions using a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
 
