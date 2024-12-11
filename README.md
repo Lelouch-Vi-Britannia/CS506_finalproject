@@ -1,4 +1,4 @@
-## How to Reproduce
+![image](https://github.com/user-attachments/assets/91abe98d-cebd-4608-ba4c-6dc360244137)## How to Reproduce
 
 1. **Install dependencies**:  
    Run the following command to install all required dependencies:  
@@ -82,7 +82,7 @@ In our pursuit of optimizing the ARIMA model for temperature prediction, we deci
 We initiated a programmatic iteration over a range of p and q values, ranging from 0 to 6. The aim was to identify the optimal combination of these parameters within an order range of (6, 0, 6).
 
 
-## Preliminary Results
+## Results of ARIMA
 
 Below are some figures of current prediction
 ![Weather Data Visualization](./image/predict_on_21.png)
@@ -92,9 +92,9 @@ Below are some figures of current prediction
 
 As we can see from the last plot on Oct 24, it is evident that the model's predictions closely align with the ground truth data. This alignment suggests the model's effectiveness in capturing and forecasting temperature trends during that day. However, if we examine on other plot from Oct 21, 22 and 23, the success did not persist. The prediction on these days,  while still following the general trend, deviated significantly from the actual values. Furthermore, discrepancies between the predicted and actual temperature values persisted in the following data points. It is apparent that the ground truth data exhibited greater variability during these days, indicating that rapid temperature changes occurred. These patterns were not adequately captured by the ARIMA model.
 
-## LSTM Model (after midterm report)
+## LSTM Model
 
-As ARIMA is a relatively simple model and will fail to capture underlying trends influenced by factors beyond temperature, we implemented a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
+As ARIMA is a relatively simple model that relies primarily on past values of the target variable and often assumes linearity and stationarity, it may fall short in capturing the underlying trends and patterns driven by a range of interdependent factors beyond temperature itself. In contrast, we turned to Long Short-Term Memory (LSTM) networks, a specialized type of Recurrent Neural Network (RNN) designed to overcome some of the fundamental limitations of traditional time-series models. LSTMs employ a series of gating mechanisms—input, forget, and output gates—that allow them to selectively remember or discard information over extended sequences. This architectural feature is particularly valuable in the context of weather prediction, where conditions such as humidity, dew point, seasonal cycles, and diurnal variations interact in complex, non-linear ways over varying timescales. By effectively managing these long-term dependencies, the LSTM can learn intricate temporal relationships that simpler models like ARIMA would likely miss. In other words, while ARIMA looks backward a limited number of steps and can struggle when the data shifts or evolves, an LSTM can adapt its internal state to evolving patterns, incorporate multiple concurrent inputs, and maintain a nuanced representation of the data’s history—enabling it to produce more accurate and robust forecasts.
 
 ## Feature Selection (see featureSelection.py)
 
@@ -107,3 +107,44 @@ We employed a systematic feature selection approach to identify the most predict
 ![Weather Data Visualization](./image/rankingFromRFE.png)
 
 From all the plots and analyses, it becomes evident that while additional features—such as humidity, dew point, and various time-derived cyclical transformations—do contribute to the prediction, the influence of the current temperature stands out as overwhelmingly dominant. This is reflected in both the correlation and mutual information measures, as well as the feature importance rankings from the tree-based models and RFE. The strong predictive power of temperature itself helps explain why a univariate ARIMA model, which relies solely on past temperature values, can still yield reasonably accurate forecasts. Although incorporating more features can provide incremental improvements, the robustness of temperature alone as a predictor underscores its pivotal role in shaping accurate temperature forecasts.
+
+## LSTM Hyperparameter Tuning (see HyperParaAutoTun.py)
+
+To identify the optimal hyperparameters for our LSTM model, we utilized [Optuna](https://optuna.org/), a flexible and efficient hyperparameter optimization library. By systematically searching through a parameter space that included:
+
+- **Sequence Length** (in increments of one hour)
+- **Batch Size**
+- **Hidden Layer Size**
+- **Number of LSTM Layers**
+- **Learning Rate**
+
+and incorporating early stopping to prevent overfitting, Optuna discovered the best-performing configuration: {"sequence_length": 14, "batch_size": 32, "hidden_size": 121, "num_layers": 3, "lr": 0.0002930386152314192}
+
+Counterintuitively, we observed that increasing sequence length tended to raise, rather than reduce, the RMSE. 
+
+![Weather Data Visualization](./image/RNSE_short.png)
+
+We hypothesize that while a longer input sequence should, in theory, help the model capture more extended patterns and seasonalities, the dataset at hand may not provide sufficient long-term data to reap these benefits. To test this hypothesis, we extended our dataset to include the past five years of data. With this extended period, the model’s performance initially worsened as sequence length grew, but eventually improved once the sequence length surpassed the seasonal cycle of approximately 365 days. This finding suggests that data quantity and coverage of seasonal patterns are critical considerations when tuning sequence length for LSTM models.
+
+![Weather Data Visualization](./image/RNSE_long.png)
+
+## Results and Analysis (resultLSTM.py)
+
+We evaluated our model’s ability to predict the maximum temperature over the next 24 hours. To do this, we set aside a test set of 1000 consecutive hours of data from November. As illustrated in the figure below, the LSTM predictions generally track the trend of the actual observed temperatures, although there is still room for improvement. In this test scenario, our model achieved an RMSE of approximately 6.19 ºF. While not highly accurate, this performance is relatively promising, especially considering that the model relies on only 14 hours of past data to forecast the next day’s peak temperature.
+
+Notably, when compared to an ARIMA model, the LSTM achieved similar accuracy levels with far less input data. This indicates the efficiency of the LSTM approach, suggesting that neural network-based models can capture essential patterns in fewer input sequences, potentially streamlining the forecasting process.
+
+![Weather Data Visualization](./image/results.png)
+
+## future work
+
+One major limitation of our current approach is the depth of our domain understanding. Since none of the team members has expertise in meteorology or environmental science, our ability to select and engineer features was constrained. With greater domain knowledge, we could refine the selection of weather-related variables—such as humidity, wind speed, or solar radiation—and create more meaningful transformations of these features. Such domain-driven feature engineering would likely lead to better model performance.
+
+Furthermore, our analysis during hyperparameter tuning revealed that model accuracy continued to improve beyond the first year of historical data. This suggests that adding more extensive historical datasets could help the model uncover longer-term seasonal and climatic trends, thus enhancing predictive accuracy. Future work would involve gathering and integrating larger, more comprehensive datasets to capitalize on this observation and further improve forecasting results.
+
+## test workflow
+
+We introduced a simple test workflow to verify imported libraries and datasets.
+
+
+
