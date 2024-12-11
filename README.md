@@ -105,3 +105,5 @@ We employed a systematic feature selection approach to identify the most predict
 ![Weather Data Visualization](./image/Featureimportance.png)
 ![Weather Data Visualization](./image/mutualInfo.png)
 ![Weather Data Visualization](./image/rankingFromRFE.png)
+
+From all the plots and analyses, it becomes evident that while additional features—such as humidity, dew point, and various time-derived cyclical transformations—do contribute to the prediction, the influence of the current temperature stands out as overwhelmingly dominant. This is reflected in both the correlation and mutual information measures, as well as the feature importance rankings from the tree-based models and RFE. The strong predictive power of temperature itself helps explain why a univariate ARIMA model, which relies solely on past temperature values, can still yield reasonably accurate forecasts. Although incorporating more features can provide incremental improvements, the robustness of temperature alone as a predictor underscores its pivotal role in shaping accurate temperature forecasts.
