@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/91abe98d-cebd-4608-ba4c-6dc360244137)## How to Reproduce
+## How to Reproduce
 
 1. **Install dependencies**:  
    Run the following command to install all required dependencies:  
