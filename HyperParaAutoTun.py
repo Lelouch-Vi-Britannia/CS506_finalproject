@@ -344,8 +344,3 @@ if __name__ == "__main__":
 
     # Done
     print("Model training and evaluation completed.")
-    import optuna.visualization as vis
-
-    # Plot optimization history
-    fig = vis.plot_optimization_history(study)
-    fig.show()
