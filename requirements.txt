@@ -1,0 +1,11 @@
+pandas~=2.2.2
+numpy~=1.26.4
+torch~=2.5.1
+matplotlib~=3.8.4
+scikit-learn~=1.4.2
+statsmodels~=0.14.2
+chardet~=4.0.0
+requests~=2.32.2
+beautifulsoup4~=4.12.3
+seaborn~=0.13.2
+optuna~=4.1.0

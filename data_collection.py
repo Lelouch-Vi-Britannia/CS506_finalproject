@@ -45,16 +45,16 @@ def scrape_weather_table(url, csv_filename='data/weather_data.csv'):
         # Load the existing data
         df_existing = pd.read_csv(csv_filename)
 
-        # Ensure 'Date' and 'Time (edt)' columns are strings
+        # Ensure 'Date' and 'Time (est)' columns are strings
         df_new['Date'] = df_new['Date'].astype(str)
-        df_new['Time (edt)'] = df_new['Time (edt)'].astype(str)
+        df_new['Time (est)'] = df_new['Time (est)'].astype(str)
         df_existing['Date'] = df_existing['Date'].astype(str)
-        df_existing['Time (edt)'] = df_existing['Time (edt)'].astype(str)
+        df_existing['Time (est)'] = df_existing['Time (est)'].astype(str)
 
-        # Convert 'Date' and 'Time (edt)' to datetime for comparison
-        df_new['Datetime'] = pd.to_datetime(df_new['Date'] + ' ' + df_new['Time (edt)'], format='%d %H:%M',
+        # Convert 'Date' and 'Time (est)' to datetime for comparison
+        df_new['Datetime'] = pd.to_datetime(df_new['Date'] + ' ' + df_new['Time (est)'], format='%d %H:%M',
                                             errors='coerce')
-        df_existing['Datetime'] = pd.to_datetime(df_existing['Date'] + ' ' + df_existing['Time (edt)'],
+        df_existing['Datetime'] = pd.to_datetime(df_existing['Date'] + ' ' + df_existing['Time (est)'],
                                                  format='%d %H:%M', errors='coerce')
 
         # Filter only new rows that are not already in the existing data
@@ -70,7 +70,7 @@ def scrape_weather_table(url, csv_filename='data/weather_data.csv'):
         df_combined = df_new
 
     # Sort the data from oldest to newest
-    df_combined = df_combined.sort_values(by=['Date', 'Time (edt)']).reset_index(drop=True)
+    df_combined = df_combined.sort_values(by=['Date', 'Time (est)']).reset_index(drop=True)
 
     # Save the updated data to the CSV file
     os.makedirs(os.path.dirname(csv_filename), exist_ok=True)
