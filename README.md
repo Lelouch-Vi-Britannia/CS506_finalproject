@@ -94,19 +94,14 @@ As we can see from the last plot on Oct 24, it is evident that the model's predi
 
 ## LSTM Model (after midterm report)
 
-As ARIMA is a relatively simple model and will fail to capture underlying trends influenced by factors beyond temperature, we plan to improve our predictions using a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
+As ARIMA is a relatively simple model and will fail to capture underlying trends influenced by factors beyond temperature, we implemented a more comprehensive model like Long Short-Term Memory (LSTM) networks. LSTM is a type of recurrent neural network (RNN) that is particularly well-suited for capturing long-term dependencies and temporal relationships in time series data. This makes it ideal for our weather prediction task, where multiple features and their interactions over time must be considered.
 
-We intend to leverage LSTM's ability to handle both short-term fluctuations and long-term trends to create a more robust model that can effectively account for various influencing factors. We will incorporate not only temperature but also additional weather-related variables such as humidity, wind speed, and atmospheric pressure to improve the predictive accuracy of the model.
+## Feature Selection (see featureSelection.py)
 
-Our next steps involve preparing the dataset for LSTM, which will include normalizing features, creating time windows for the input sequence, and splitting the data into training, validation, and testing sets. We will then build, train, and fine-tune the LSTM model to evaluate its performance in comparison to the ARIMA model.
+We employed a systematic feature selection approach to identify the most predictive variables for forecasting maximum temperature over the next 24 hours. First, we conducted correlation analysis and visualized how each feature related to the target, removing those with negligible or redundant associations. We then used mutual information (MI) to capture non-linear dependencies between features and the target, providing additional insights into their predictive power. Next, we leveraged a tree-based model, specifically a Random Forest Regressor, to determine the relative importance of different predictors, allowing us to prioritize those that contributed most to reducing prediction errors. Finally, we applied Recursive Feature Elimination (RFE) with a linear model to iteratively refine our feature set, systematically removing the least important variables until we arrived at a subset that balanced model simplicity with accuracy. Based on these combined insights, we selected a comprehensive set of features that included raw measures (e.g., Temperature, Relative Humidity, Dew Point), time-derived cyclical transformations (e.g., Date_Sin, Date_Cos, Month_Sin, Month_Cos, Hour_Sin, Hour_Cos), and a sequence of lagged temperature values from the past 24 hours. This careful feature engineering and selection process ensured that our final model input retained the most informative predictors, thereby improving the overall forecasting performance.
 
-Final Report (Due 12/10)
-The README.md in your project repo is the final report (reuse anything you want from the midterm report).
-
-You must include the following:
-
-How to build and run the code (Include this first so we know how to reproduce your results). There should be a makefile that installs all dependencies and builds the code. This is the most important part.
-Include test code and a GitHub workflow that runs the test code. Just test a few things you think are important - no need to overdo it on the testing front, since that’s not the focus of the project.
-Visualizations of data (interactive visualizations are highly encouraged).
-Description of data processing and modeling (what the code does).
-Results showing that you achieved your goal.
+![Weather Data Visualization](./image/correlationwithTargetVar.png)
+![Weather Data Visualization](./image/featureCorrelation.png)
+![Weather Data Visualization](./image/Featureimportance.png)
+![Weather Data Visualization](./image/mutualInfo.png)
+![Weather Data Visualization](./image/rankingFromRFE.png)
